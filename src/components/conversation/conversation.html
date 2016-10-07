@@ -1,0 +1,28 @@
+<ion-item tappable (click)="toggleConversation(conversation)" style="cursor:pointer">
+  <p [hidden]="account._id != conversation.creator.id">
+    {{conversation.recipient.firstName}} {{conversation.recipient.lastName}}
+  </p>
+
+  <p [hidden]="account._id != conversation.recipient.id">
+    {{conversation.creator.firstName}} {{conversation.creator.lastName}}
+  </p>
+  <!--<button small clear (click)="showConversationOptions(conversation)" item-right>
+    <ion-icon name="options"></ion-icon>
+  </button> -->
+  <button ion-button small clear (click)="replyToConversation(conversation,$event)" item-right>
+    <ion-icon name="share-alt"></ion-icon>
+  </button>
+</ion-item>
+<ion-item *ngFor="let message of conversation.messages" [hidden]="conversation.collapsed">
+
+  <ion-avatar *ngIf="message.sender != account._id" item-left>
+    <img *ngIf="conversation.creator.photo != account.photo" src="{{conversation.creator.photo}}"/>
+    <img *ngIf="conversation.recipient.photo != account.photo" src="{{conversation.recipient.photo}}"/>
+  </ion-avatar>
+  <ion-item *ngIf="message.sender != account._id"> {{message.content}}</ion-item>
+
+  <ion-avatar *ngIf="message.sender == account._id" item-right>
+    <img src="{{account.photo}}"/>
+  </ion-avatar>
+  <ion-item *ngIf="message.sender == account._id" text-wrap style="text-align: right;"> {{message.content}}</ion-item>
+</ion-item>

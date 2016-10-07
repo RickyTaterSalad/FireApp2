@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Fire App</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid class="homeGrid">
+    <ion-row class="homeGridRow">
+      <ion-col width-50>
+        <button ion-button (click)="goToCalendar()">
+          <ion-icon class="homeButtonIcon"  name="calendar"></ion-icon>
+          Schedule
+        </button>
+      </ion-col>
+      <ion-col width-50>
+        <button ion-button (click)="goToMessages()">
+          <ion-icon  class="homeButtonIcon" name="mail"></ion-icon>
+          Messages
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="homeGridRow">
+      <ion-col width-50>
+        <button ion-button (click)="goToShiftManager()">
+          <ion-icon class="homeButtonIcon" name="swap"></ion-icon>
+          Shift Manager
+        </button>
+      </ion-col>
+      <ion-col width-50>
+        <button ion-button (click)="goToPayback()">
+          <ion-icon class="homeButtonIcon" name="repeat"></ion-icon>
+          Payback
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="homeGridRow">
+      <ion-col width-50>
+        <button ion-button (click)="goToAccount()">
+          <ion-icon class="homeButtonIcon" name="person"></ion-icon>
+          Profile
+        </button>
+      </ion-col>
+      <ion-col width-50>
+        <button ion-button (click)="goToSettings()">
+          <ion-icon class="homeButtonIcon" name="settings"></ion-icon>
+          Options
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

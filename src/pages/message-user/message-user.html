@@ -1,0 +1,41 @@
+<!--
+  Generated template for the MessageUserPage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{message.conversation.post.shift | momentToString }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-avatar item-left>
+          <img  [hidden]="account._id != message.conversation.recipient.id" src="{{message.conversation.creator.photo}}"/>
+             <img [hidden]="account._id != message.conversation.creator.id" src="{{message.conversation.recipient.photo}}"/>
+
+      </ion-avatar>
+      <ion-label item-right [hidden]="account._id != message.conversation.recipient.id">
+        {{message.conversation.creator.firstName}} {{message.conversation.creator.lastName}}
+        </ion-label>
+      <ion-label item-right [hidden]="account._id != message.conversation.creator.id">
+        {{message.conversation.recipient.firstName}} {{message.conversation.recipient.lastName}}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-item>
+    <ion-label stacked>Message</ion-label>
+    <ion-textarea [(ngModel)]="message.content" autofocus ></ion-textarea>
+  </ion-item>
+  <button ion-button style="float:right" color="primary" item-right
+          (click)="sendMessage()"
+          [disabled]="message.content == null || message.content.length == 0" item-right>
+    <ion-label>Send</ion-label>
+  </button>
+</ion-content>

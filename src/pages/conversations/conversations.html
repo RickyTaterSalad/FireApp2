@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title> {{post.shift | momentToString}}</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-card *ngFor="let conversation of conversations;let convNdx = index" class="shiftPostingCard"
+            [hidden]="conversation.messages.length == 0">
+    <conversation [(conversation)]="conversations[convNdx]" [(account)]="account"></conversation>
+  </ion-card>
+</ion-content>

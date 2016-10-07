@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Message User</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+ <post-brief [(post)]="post" [(account)]="account" [(allowmessage)]="allowUserMessageInPost"></post-brief>
+  <ion-list radio-group [(ngModel)]="swapType" [hidden]="!post.isOvertime || !post.isTrade">
+    <ion-label>
+      Swap Type
+    </ion-label>
+    <ion-item>
+      <ion-label>Trade</ion-label>
+      <ion-radio value="trade"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>Overtime</ion-label>
+      <ion-radio value="overtime"></ion-radio>
+    </ion-item>
+  </ion-list>
+  <ion-item>
+    <ion-label stacked>Message</ion-label>
+    <ion-textarea  autofocus [(ngModel)]="messageData.message"></ion-textarea>
+  </ion-item>
+  <button ion-button style="float:right" color="primary" item-right
+          (click)="createConversation()"
+          [disabled]="messageData.message == null || messageData.message.length == 0" item-right>
+    <ion-label>Send</ion-label>
+  </button>
+</ion-content>
