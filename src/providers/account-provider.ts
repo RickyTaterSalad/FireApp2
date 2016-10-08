@@ -50,11 +50,15 @@ export class AccountProvider {
             && !this._self.assignedHireCode;
   };
 
-  register: Function = function() {
+  register: Function = function(registerParams) {
+    if(!registerParams){
+      return Observable.empty();
+    }
       var account = this._self;
-      let body = JSON.stringify(account);
+      let body = JSON.stringify({registration: registerParams});
       var sub = this.httpProvider.postJSON(this.selfEndpoint, body);
       sub.subscribe(()=> {
+        //this.authProvider.reloadUser();
       }, (err)=> {
         this.alertProvider.showShortMessage(err && err._body ? err._body : "Could Not Register User", "Error");
       });

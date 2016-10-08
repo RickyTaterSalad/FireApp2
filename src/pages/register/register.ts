@@ -8,72 +8,72 @@ import {AssignHireCodeProvider} from "../../providers/assign-hire-provider";
 
 
 /*
-  Generated class for the RegisterPage page.
+ Generated class for the RegisterPage page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
+ See http://ionicframework.com/docs/v2/components/#navigation for more info on
+ Ionic pages and navigation.
+ */
 @Component({
   selector: "register-page",
   templateUrl: 'register.html'
 
 })
 export class RegisterPage {
-    selectedRank: string;
-    selectedPlatoon : string;
-    selectedAH : string;
-    department;
-    ranks : string[];
-    platoons : string[];
-    stations;
-    ahCodes;
 
-    constructor(private navCtrl: NavController,
-                private navParams: NavParams,
-                private authProvider:AuthProvider,
-                private accountProvider:AccountProvider,
-                private departmentProvider:DepartmentProvider,
-                private stationProvider:StationProvider,
-                private assignHireCodesProvider:AssignHireCodeProvider) {
+  rank:"";
+  platoon:"";
+  station:"";
+  ahCode:"";
 
-            departmentProvider.Department().subscribe(
-                (dept) => {
-                    this.department = dept;
-                    this.ranks = this.department.ranks;
-                    this.platoons = this.department.platoons;
-                }
-            );
+  department;
+  ranks:string[];
+  platoons:string[];
+  stations;
+  ahCodes;
 
-            stationProvider.Stations().subscribe(
-                (stations) => {
-                    this.stations = stations;
-                }
-            );
+  constructor(private navCtrl:NavController,
+              private navParams:NavParams,
+              private authProvider:AuthProvider,
+              private accountProvider:AccountProvider,
+              private departmentProvider:DepartmentProvider,
+              private stationProvider:StationProvider,
+              private assignHireCodesProvider:AssignHireCodeProvider) {
 
-            assignHireCodesProvider.AHCodes().subscribe(
-                (ahCodes) => {
-                    this.ahCodes = ahCodes;
-                }
-            );
+    departmentProvider.Department().subscribe(
+      (dept) => {
+        console.dir(dept);
+        this.department = dept;
+        if (this.department) {
+          this.ranks = this.department.ranks;
+          this.platoons = this.department.platoons;
+        }
+      }
+    );
+
+    stationProvider.Stations().subscribe(
+      (stations) => {
+        this.stations = stations;
+      }
+    );
+
+    assignHireCodesProvider.AHCodes().subscribe(
+      (ahCodes) => {
+        this.ahCodes = ahCodes;
+      }
+    );
+  }
+
+  register:Function = function () {
+    if(this.rank && this.station && this.ahCode && this.platoon){
+      var registerParams = {
+        rank: this.rank,
+        station: this.station,
+        assignHireCode: this.ahCode,
+        platoon: this.platoon
+      }
+      this.accountProvider.register(registerParams);
+
     }
 
-   register:Function = function() {
-      this.accountProvider.self().subscribe(
-          (account) => {
-            //   account.firstName = this.firstName;
-            //   account.lastName = this.lastName;
-              account.platoon = this.platoon;
-              account.rank = this.rank;
-              account.assignedHireCode = this.ahCode;
-            //   account.email = this.email;
-              account.station = this.station;
-
-              this.accountProvider.register();
-
-          },
-          (err) => {
-              //unable to get self
-          }
-      );
   }
 }

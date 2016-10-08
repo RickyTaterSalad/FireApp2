@@ -26,6 +26,7 @@ export class LoginPage {
   }
 
   logUserIn:Function = function () {
+    console.log("LOG ING");
     this.authProvider.login();
   }
 }
